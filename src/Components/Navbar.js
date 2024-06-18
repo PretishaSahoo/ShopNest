@@ -64,7 +64,7 @@ export default function Navbar() {
                 Products
               </Link>
             </li>
-            <li className="lg:mr-12 bg-transparent">
+           {isLoggedIn===true &&  <><li className="lg:mr-12 bg-transparent">
               <Link
                 className="rounded-xl bg-transparent p-2 text-gray-50 transition hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-offset-2"
                 to="/"
@@ -126,9 +126,9 @@ export default function Navbar() {
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
               </Link>
-            </li>
-            <div className=" flex bg-transparent">
-             {isLoggedIn===false && <><li className="lg:mr-2 bg-transparent mt-6">
+            </li></> }
+            <div className=" flex bg-transparent ">
+             {isLoggedIn===false && <><li className="lg:mr-2 bg-transparent mt-3 ">
                 <Link
                   className="px-2 py-2 w-full rounded-xl bg-gradient-to-br from-purple-400 to-pink-600  text-white"
                   to="/Signup"
@@ -136,7 +136,7 @@ export default function Navbar() {
                   Signup
                 </Link>
               </li>
-              <li className="lg:mr-2 mt-6 bg-transparent">
+              <li className="lg:mr-2 mt-3 bg-transparent">
                 <Link
                   className="px-2 py-2  w-full rounded-xl bg-gradient-to-br from-purple-400 to-pink-600  text-white"
                   to="/Login"

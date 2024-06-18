@@ -1,22 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProductItem from './ProductItem'
-
-const products = [
-  { id: 1, name: 'Product 1', description: 'Description 1', price: '$10' },
-  { id: 2, name: 'Product 2', description: 'Description 2', price: '$20' },
-  { id: 3, name: 'Product 3', description: 'Description 3', price: '$30' },
-  { id: 4, name: 'Product 4', description: 'Description 4', price: '$40' },
-  { id: 5, name: 'Product 5', description: 'Description 5', price: '$50' },
-  { id: 6, name: 'Product 6', description: 'Description 6', price: '$60' }
-];
+import { useProduct } from '../Context/ProductContext'
 
 export default function Product() {
+
+  const {fetchProducts , Products } = useProduct();
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+
   return (
     <>
-      <div className="grid gap-4 p-4 grid-cols-1 md:grid-cols-3" style={{ paddingTop: "150px" }}>
-        {products.map(product => (
-          <div key={product.id} className="p-3 m-3" >
-            <ProductItem product={product} />
+      <div className="grid gap-4 p-4 grid-cols-1 md:grid-cols-3 lg:grid-cols-4" style={{ paddingTop: "150px" }}>
+        {Products.map(product => (
+          <div key={product._id} className="p-3 m-3"  >
+            <ProductItem productName={product.productName}  productDesc={product.productDesc} price = {product.price} productImageURL={product.productImageURL} productOwnerName={product.productOwnerName} sizes={product.sizes}/>
           </div>
         ))}
       </div>
