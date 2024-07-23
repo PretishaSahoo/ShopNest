@@ -57,6 +57,7 @@ export default function Login() {
                   <div>
                     <div className="mt-2.5 ">
                       <input
+                        required = "true"
                         name="email"
                         id="email"
                         type="email"
@@ -71,6 +72,7 @@ export default function Login() {
                   <div>
                     <div className="mt-2.5 ">
                       <input
+                        required = "true"
                         name="password"
                         id="password"
                         type="password"
@@ -84,7 +86,7 @@ export default function Login() {
 
                   <div className="sm:col-span-2">
                     <button className="text-xl w-full p-4 mt-2 font-semibold text-white bg-primary-color rounded-md " onClick={handleLogin}>
-                      Send
+                      Login
                     </button>
                   </div>
                 </div>

@@ -1,26 +1,75 @@
-import React from 'react'
-import ProductItem from './ProductItem'
+import React from 'react';
+import { useProduct } from '../Context/ProductContext';
+import { useAuth } from '../Context/AuthContext';
 
-const products = [
-  { id: 1, name: 'Product 1', description: 'Description 1', price: '$10' },
-  { id: 2, name: 'Product 2', description: 'Description 2', price: '$20' },
-  { id: 3, name: 'Product 3', description: 'Description 3', price: '$30' },
-  { id: 4, name: 'Product 4', description: 'Description 4', price: '$40' },
-  { id: 5, name: 'Product 5', description: 'Description 5', price: '$50' },
-  { id: 6, name: 'Product 6', description: 'Description 6', price: '$60' }
-];
+export default function Orders() { 
+  const { orders = [], receivedOrders = [] } = useProduct();
+  const { currentUser } = useAuth();
 
-export default function Orders() {
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  console.log(receivedOrders);
+
   return (
     <>
-     <h3 className='text-white font-bold text-center text-2xl'style={{ paddingTop: "150px" }}>Your Previous Orders :- </h3>
-      <div className="grid gap-4 p-4 grid-cols-1 md:grid-cols-3" >
-        {products.map(product => (
-          <div key={product.id} className="p-3 m-3" >
-            <ProductItem product={product} />
+      <h3 className='text-pink-400 font-bold text-center text-2xl' style={{ paddingTop: "150px" }}>
+        Your Previous Orders:
+      </h3>
+      <div className="p-4" style={{ minHeight: "200px" }}>
+        {/* Personal Orders */}
+        <div className="mb-6">
+          <h4 className='text-xl font-semibold text-pink-300 mb-4 text-center mx-auto'>My Orders:</h4>
+          {orders.length > 0 ? (
+            orders.map((order) => (
+              <div key={order._id} className="max-w-[1200px] mx-auto mb-6  rounded-lg p-4 bg-gray-800" style={{ boxShadow: "0 0 20px 10px rgba(128, 128, 128, 0.1)" }}>
+                <h5 className='text-lg font-bold text-white'>Order Date: {formatDate(order.placedAt)}</h5>
+                <h6 className='text-md font-semibold text-white'>Total Cost: ₹{order.totalCost}</h6>
+                <div className="mt-4">
+                  {order.products.map((product) => (
+                    <div key={product.productId} className="border-b py-2">
+                      <h6 className='text-white font-medium'>{product.productName}</h6>
+                      <p className='text-gray-300'>Size: {product.size}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className='text-white text-center mx-auto'>You have no orders yet.</p>
+          )}
+        </div>
+
+        {/* Received Orders (if Brand) */}
+        {currentUser?.role === 'Brand' && (
+          <div>
+            <h4 className='text-xl font-semibold text-pink-300  mb-4 text-center mx-auto'>Received Orders:</h4>
+            {receivedOrders.length > 0 ? (
+              receivedOrders.map((order) => (
+                <div key={order._id} className="max-w-[1200px] mx-auto mb-6 rounded-lg p-4 bg-gray-800" style={{ boxShadow: "0 0 20px 10px rgba(128, 128, 128, 0.1)" }}>
+                  <h5 className='text-lg font-bold text-white'>Order Date: {formatDate(order.orderDate)}</h5>
+                  <h6 className='text-md font-semibold text-white'>Delivery Address: {order.deliveryAddress}</h6>
+                  <h6 className='text-md font-semibold text-white'>Customer Name : {order.userName}</h6>
+                  <h6 className='text-md font-semibold text-white'>Customer Contact: {order.userNumber}</h6>
+                  
+                  <div className="mt-4">
+                    {order.products?.map((product) => (
+                      <div key={product.productId} className="border-b py-2">
+                        <h6 className='text-white font-medium'>{product.productName}</h6>
+                        <p className='text-gray-300'>Size: {product.size}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className='text-white text-center mx-auto'>You have no received orders yet.</p>
+            )}
           </div>
-        ))}
+        )}
       </div>
     </>
-  )
+  );
 }

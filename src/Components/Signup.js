@@ -3,10 +3,14 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function Signup() {
 
   const navigate = useNavigate() ;
+
+  const baseURL = process.env.REACT_APP_MODE === "production" ? "https://shop-nest-b.vercel.app" : "http://localhost:5000"
 
   const [data, setData] = useState({name :"" , email :"" , phone: "" , password:"", address:"" , role:"User"});
 
@@ -22,7 +26,11 @@ export default function Signup() {
   const handleSignup = async(e)=>{
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/user/signup" , data);
+      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const user = userCredential.user;
+      console.log('Firebase user created:', user);
+
+      const response = await axios.post(`${baseURL}/api/user/signup` , data);
       console.log(response.data);
       setData({name :"" , email :"" , phone: "" , password:"", address:"" , role:"User"})
       toast.success("Signup Succesfull!");
@@ -31,7 +39,7 @@ export default function Signup() {
         navigate("/login")
       }, 2000);
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
       toast.error("Oops an error occured! Please check your credentials");
     }
   }
@@ -63,6 +71,7 @@ export default function Signup() {
                   <div>
                     <div className="mt-2.5 ">
                       <input
+                        required = "true"
                         name="name"
                         id="name"
                         type="text"
@@ -77,6 +86,7 @@ export default function Signup() {
                   <div>
                     <div className="mt-2.5 ">
                       <input
+                        required = "true"
                         name="email"
                         id="email"
                         type="email"
@@ -91,6 +101,7 @@ export default function Signup() {
                   <div>
                     <div className="mt-2.5 ">
                       <input
+                        required = "true"
                         name="phone"
                         id="phone"
                         type="text"
@@ -105,6 +116,7 @@ export default function Signup() {
                   <div>
                     <div className="mt-2.5 ">
                       <input
+                        required = "true"
                         name="password"
                         id="password"
                         type="password"
@@ -119,6 +131,7 @@ export default function Signup() {
                   <div className="sm:col-span-2">
                     <div className="mt-2.5">
                       <textarea
+                        required = "true"
                         name="address"
                         id="address"
                         placeholder="Type your address here ..."
@@ -142,7 +155,7 @@ export default function Signup() {
 
                   <div className="sm:col-span-2">
                     <button className="text-xl w-full p-4 mt-2 font-semibold text-white bg-primary-color rounded-md " >
-                      Send
+                      Signup
                     </button>
                   </div>
                 </div>
