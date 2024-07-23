@@ -32,7 +32,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center mt-12">
           <p className="mb-6 md:mb-0">&copy; {new Date().getFullYear()} ShopNest. All rights reserved.</p>
           <div className="flex space-x-4">
-            <Link to="/https://pretisha-sahoo.vercel.app/" className="text-white hover:text-pink-500">@Created by Pretisha Sahoo</Link>
+            <Link to="https://pretisha-sahoo.vercel.app" className="text-white hover:text-pink-500">@Created by Pretisha Sahoo</Link>
             <Link to="/" className="text-white hover:text-pink-500">Contact Us</Link>
           </div>
         </div>
