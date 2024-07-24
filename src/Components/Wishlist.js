@@ -24,7 +24,8 @@ export default function Wishlist() {
     const matchesSearchTerm =
       product.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.productDesc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.productOwnerName.toLowerCase().includes(searchTerm.toLowerCase());
+      product.productOwnerName.toLowerCase().includes(searchTerm.toLowerCase())||
+      product._id.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesPrice =
       product.price >= minPrice && product.price <= maxPrice;
     return matchesSearchTerm && matchesPrice;

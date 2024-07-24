@@ -299,6 +299,7 @@ export default function ProductItem({ productId , productName , productDesc , pr
         <div
           align="center bg-transparent"
         >
+
           <img
             className="bg-transparent w-full "
             style={{ height: "250px" }}
@@ -306,6 +307,10 @@ export default function ProductItem({ productId , productName , productDesc , pr
             alt=""
             onClick={()=>openImg(productImageURL)}
           />
+        </div>
+
+        <div className="bg-transparent text-center text-sm text-slate-400 font-bold">
+           ProductId : {productId}
         </div>
 
         { (currentUser._id === productOwner) && <div className="flex justify-end space-x-4">

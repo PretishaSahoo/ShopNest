@@ -53,11 +53,12 @@ export default function Orders() {
                   <h6 className='text-md font-semibold text-white'>Delivery Address: {order.deliveryAddress}</h6>
                   <h6 className='text-md font-semibold text-white'>Customer Name : {order.userName}</h6>
                   <h6 className='text-md font-semibold text-white'>Customer Contact: {order.userNumber}</h6>
+                  <h6 className='text-md font-semibold text-white'>Order Amount:  ₹{order.money}</h6>
                   
                   <div className="mt-4">
                     {order.products?.map((product) => (
                       <div key={product.productId} className="border-b py-2">
-                        <h6 className='text-white font-medium'>{product.productName}</h6>
+                        <h6 className='text-white font-medium'>Product Id : {product.productId}</h6>
                         <p className='text-gray-300'>Size: {product.size}</p>
                       </div>
                     ))}

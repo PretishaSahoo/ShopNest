@@ -68,7 +68,7 @@ export default function BrandProducts() {
         "productImageURL": imgUrl,
         "productOwner": currentUser._id,
         "productOwnerName": currentUser.name,
-        "orders":currentUser.orders,
+        "orders":[],
         "sizes": data.sizes,
       }
       await addProduct(input);
