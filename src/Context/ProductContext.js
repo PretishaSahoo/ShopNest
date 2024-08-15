@@ -13,6 +13,7 @@ export const ProductProvider = ({ children }) => {
     const [wishlist,setWishlist] = useState([]);
     const [orders , setOrders] = useState ([]);
     const [receivedOrders, setReceivedOrders] = useState([]);
+    const[TrendingProducts , setTrendingProducts] = useState([]);
     const {currentUser} = useAuth();
 
     const baseURL = process.env.REACT_APP_MODE === "production" ? "https://shop-nest-b.vercel.app" : "http://localhost:5000"
@@ -29,6 +30,16 @@ export const ProductProvider = ({ children }) => {
             fetchBrandProducts(id);
         }
       }, [currentUser]);
+
+    const fetchTrendingProducts = async(query)=>{
+        try {
+           const response = await axios.post(`${baseURL}/api/user/fetchTrends/${query}`) 
+           setTrendingProducts(response.data.products);
+           console.log(response.data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const fetchProducts = async() =>{
         try {
@@ -184,7 +195,9 @@ const ProductContextValue = {
     addOrder,
     fetchOrders,
     fetchReceivedOrders,
-    receivedOrders
+    receivedOrders,
+    fetchTrendingProducts,
+    TrendingProducts 
     };
 
     return (
@@ -193,3 +206,5 @@ const ProductContextValue = {
     </ProductContext.Provider>
     );
 }
+
+

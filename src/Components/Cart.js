@@ -45,9 +45,6 @@ export default function Cart() {
     return matchesSearchTerm && matchesPrice;
   });
 
-  console.log("Filtered Cart:", filteredCart);
-  console.log("Search Term:", searchTerm);
-
   const Buy = async () => {
     if (!currentUser) {
       console.error('User not authenticated');

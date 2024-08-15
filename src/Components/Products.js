@@ -15,7 +15,7 @@ export default function Product() {
     if (currentUser) {
       fetchProducts();
     }
-  }, [currentUser, fetchProducts]);
+  }, [currentUser]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
