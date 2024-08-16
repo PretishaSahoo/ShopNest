@@ -24,6 +24,8 @@ export default function About() {
           <section className="mt-12 bg-gray-800">
             <h2 className="text-3xl font-bold mb-4 primary-color">Our Features</h2>
             <ul className="list-disc list-inside text-lg text-gray-400">
+            <li>Trend Extraction from various social Media like Youtube , Vogue, etc and matching Products displayed to users </li>
+            <li>Product Recommendation system </li>
             <li>AI-Powered Style Bot - Maya</li>
             <li>User authentication for both brands and users</li>
             <li>Seamless product management for brands, with notifications sent to both users and brands whenever an order is placed</li>
